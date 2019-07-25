@@ -4,9 +4,20 @@ import Router from 'vue-router'
 Vue.use(Router)
 
 let router = new Router({
-  routes: [
-    { path: '/login', name: 'login', component: () => import('@/views/login') },
-    { path: '/home', name: 'home', component: () => import('@/views/home') }
+  routes: [{
+    path: '/login',
+    name: 'login',
+    component: () => import('@/views/login')
+  },
+  {
+    path: '/home',
+    name: 'home',
+    component: () => import('@/views/home'),
+    redirect: '/welcome',
+    children: [
+      { path: 'welcome', name: 'welcome', component: () => import('@/views/welcome') }
+    ]
+  }
   ]
 })
 router.beforeEach((to, from, next) => {

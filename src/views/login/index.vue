@@ -74,14 +74,14 @@ export default {
   },
   methods: {
     login () {
-      // 只允许建立一个div
-      if (this.catpchaObject) {
-        return this.catpchaObject.verify()
-      }
-      // 登陆等待
-      this.btnLoading = true
       this.$refs.loginFormRef.validate(valid => {
         if (valid) {
+          // 只允许建立一个div
+          if (this.catpchaObject) {
+            return this.catpchaObject.verify()
+          }
+          // 登陆等待
+          this.btnLoading = true
           let pro = this.$http.get(`/captchas/${this.loginForm.mobile}`)
           pro
             .then((result) => {
@@ -117,7 +117,7 @@ export default {
       pro
         .then((result) => {
           // 设置token
-          let { name, token, photo } = result.data
+          let { name, token, photo } = result.data.data
           window.sessionStorage.setItem('name', name)
           window.sessionStorage.setItem('token', token)
           window.sessionStorage.setItem('photo', photo)
